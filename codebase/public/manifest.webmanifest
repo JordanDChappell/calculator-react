@@ -1,6 +1,6 @@
 {
-  "name": "PLACEHOLDER NAME",
-  "short_name": "PLACEHOLDER SHORT NAME",
+  "name": "React Calculator",
+  "short_name": "React Calculator",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "browser",

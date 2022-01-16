@@ -1,9 +1,9 @@
 {
-  "name": "react-app-template-please-update",
-  "version": "1.0.0",
-  "description": "Edit this description for your application",
+  "name": "calculator-react",
+  "version": "0.0.1",
+  "description": "Have you ever thought to yourself \"I want to see yet another calculator application?\", No? Well tough luck.",
   "main": "index.js",
-  "repository": "https://github.com/JordanDChappell/react-app-template",
+  "repository": "https://github.com/JordanDChappell/calculator-react",
   "author": "Jordan Chappell",
   "license": "MIT",
   "private": false,
