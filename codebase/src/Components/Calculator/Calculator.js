@@ -1,11 +1,45 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-const Calculator = ({ props }) => {};
+/* Components */
+import Screen from './Screen/Screen';
 
-Calculator.propTypes = {
-  props: PropTypes.object,
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const allowedDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const allowedOperators = ['+', '-', '*', '/', '='];
+
+/**
+ * The bulk of the application logic is housed in this component. Will handle display of screen, buttons, and calculator outputs.
+ * Also takes care of keyboard events.
+ */
+const Calculator = () => {
+  const [digits, setDigits] = useState([]);
+
+  /**
+   * Handle keyboard events for the calculator, digits will draw to screen, operators will apply operations, etc.
+   * @param {object} event Keydown event.
+   */
+  const handleKeyboard = (event) => {
+    if (allowedDigits.includes(event.key)) setDigits([...digits, event.key]);
+    if (allowedOperators.includes(event.key)) console.log(event.key);
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyboard);
+    return () => document.removeEventListener('keydown', handleKeyboard); // clean up event listeners
+  });
+
+  return (
+    <Container>
+      <Screen digits={digits} />
+    </Container>
+  );
 };
 
 export default Calculator;
