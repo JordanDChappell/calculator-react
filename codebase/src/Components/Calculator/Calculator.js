@@ -12,7 +12,8 @@ const Container = styled.div`
 `;
 
 const allowedDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const allowedOperators = ['+', '-', '*', '/', '='];
+const allowedOperators = ['+', '-', '*', '/'];
+const equalsSymbol = '=';
 
 /**
  * The bulk of the application logic is housed in this component. Will handle display of screen, buttons, and calculator outputs.
@@ -21,13 +22,22 @@ const allowedOperators = ['+', '-', '*', '/', '='];
 const Calculator = () => {
   const [digits, setDigits] = useState([]);
 
+  const handleOperator = (operator) => {
+    console.log(operator);
+  };
+
+  const handleEquals = () => {
+    console.log('equals');
+  };
+
   /**
    * Handle keyboard events for the calculator, digits will draw to screen, operators will apply operations, etc.
    * @param {object} event Keydown event.
    */
   const handleKeyboard = (event) => {
     if (allowedDigits.includes(event.key)) setDigits([...digits, event.key]);
-    if (allowedOperators.includes(event.key)) console.log(event.key);
+    if (allowedOperators.includes(event.key)) handleOperator(event.key);
+    if (event.key === equalsSymbol) handleEquals();
   };
 
   useEffect(() => {
