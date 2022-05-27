@@ -1,33 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+/* Library */
+import {
+  modes,
+  allowedDigits,
+  allowedOperators,
+  equalsSymbol,
+  determineOperatorMode,
+} from '../../Utils/calculatorUtils';
+
 /* Components */
 import Screen from './Screen/Screen';
 
 const Container = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
-
-const allowedDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const allowedOperators = ['+', '-', '*', '/'];
-const equalsSymbol = '=';
+const ScreenContainer = styled.div`
+  margin-bottom: 1rem;
+`;
 
 /**
  * The bulk of the application logic is housed in this component. Will handle display of screen, buttons, and calculator outputs.
  * Also takes care of keyboard events.
  */
 const Calculator = () => {
-  const [digits, setDigits] = useState([]);
+  const [mode, setMode] = useState(null);
+  const [leftOperand, setLeftOperand] = useState([]);
+  const [rightOperand, setRightOperand] = useState([]);
+  const [answer, setAnswer] = useState([]);
+
+  const appendLeftOperand = (digit) => {
+    setLeftOperand([...leftOperand, digit]);
+  };
+
+  const appendRightOperand = (digit) => {
+    setRightOperand([...rightOperand, digit]);
+  };
+
+  const handleDigit = (digit) => {
+    if (mode) appendLeftOperand(digit);
+    else appendRightOperand(digit);
+  };
 
   const handleOperator = (operator) => {
-    console.log(operator);
+    const selectedMode = determineOperatorMode(operator);
+    setMode(selectedMode);
   };
 
   const handleEquals = () => {
-    console.log('equals');
+    const left = parseInt(leftOperand.join(''), 10);
+    const right = parseInt(rightOperand.join(''), 10);
+    const calculated = (left + right).toString(10).split('');
+
+    setMode(null);
+    setAnswer(calculated);
+    setLeftOperand(calculated);
+    setRightOperand([]);
   };
 
   /**
@@ -35,7 +68,7 @@ const Calculator = () => {
    * @param {object} event Keydown event.
    */
   const handleKeyboard = (event) => {
-    if (allowedDigits.includes(event.key)) setDigits([...digits, event.key]);
+    if (allowedDigits.includes(event.key)) handleDigit(event.key);
     if (allowedOperators.includes(event.key)) handleOperator(event.key);
     if (event.key === equalsSymbol) handleEquals();
   };
@@ -47,7 +80,15 @@ const Calculator = () => {
 
   return (
     <Container>
-      <Screen digits={digits} />
+      <ScreenContainer>
+        <Screen symbols={leftOperand} />
+      </ScreenContainer>
+      <ScreenContainer>
+        <Screen symbols={rightOperand} />
+      </ScreenContainer>
+      {/* <ScreenContainer>
+        <Screen symbols={answer} />
+      </ScreenContainer> */}
     </Container>
   );
 };

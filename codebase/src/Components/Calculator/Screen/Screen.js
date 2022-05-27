@@ -17,14 +17,14 @@ const Container = styled.div`
 
 /**
  * Display a list of digits on a segmented screen.
- * @param {array} props.digits
+ * @param {array} props.symbols
  */
-const Screen = ({ digits }) => (
+const Screen = ({ symbols }) => (
   <Container>
-    {digits.map((digit, index) => (
+    {symbols.map((symbol, index) => (
       <Segments
-        key={`${index}-${digit}`}
-        symbol={digit}
+        key={`${index}-${symbol}`}
+        symbol={symbol}
         height="100px"
         width="50px"
       />
@@ -33,7 +33,7 @@ const Screen = ({ digits }) => (
 );
 
 Screen.propTypes = {
-  digits: PropTypes.arrayOf(PropTypes.string),
+  symbols: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default Screen;
