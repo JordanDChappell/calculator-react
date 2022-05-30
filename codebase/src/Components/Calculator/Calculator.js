@@ -3,11 +3,10 @@ import styled from 'styled-components';
 
 /* Library */
 import {
-  modes,
   allowedDigits,
   allowedOperators,
   equalsSymbol,
-  determineOperatorMode,
+  backspace,
 } from '../../Utils/calculatorUtils';
 
 /* Components */
@@ -22,6 +21,7 @@ const Container = styled.div`
 `;
 const ScreenContainer = styled.div`
   margin-bottom: 1rem;
+  display: flex;
 `;
 
 /**
@@ -29,38 +29,20 @@ const ScreenContainer = styled.div`
  * Also takes care of keyboard events.
  */
 const Calculator = () => {
-  const [mode, setMode] = useState(null);
-  const [leftOperand, setLeftOperand] = useState([]);
-  const [rightOperand, setRightOperand] = useState([]);
-  const [answer, setAnswer] = useState([]);
+  const [operation, setOperation] = useState([]);
 
-  const appendLeftOperand = (digit) => {
-    setLeftOperand([...leftOperand, digit]);
-  };
-
-  const appendRightOperand = (digit) => {
-    setRightOperand([...rightOperand, digit]);
-  };
-
-  const handleDigit = (digit) => {
-    if (mode) appendLeftOperand(digit);
-    else appendRightOperand(digit);
-  };
-
-  const handleOperator = (operator) => {
-    const selectedMode = determineOperatorMode(operator);
-    setMode(selectedMode);
+  const appendSymbol = (symbol) => {
+    setOperation([...operation, symbol]);
   };
 
   const handleEquals = () => {
-    const left = parseInt(leftOperand.join(''), 10);
-    const right = parseInt(rightOperand.join(''), 10);
-    const calculated = (left + right).toString(10).split('');
+    // eslint-disable-next-line no-eval
+    const calculated = eval(operation.join('')); // this should be safe when restricted to math operations
+    setOperation(calculated.toString(10).split(''));
+  };
 
-    setMode(null);
-    setAnswer(calculated);
-    setLeftOperand(calculated);
-    setRightOperand([]);
+  const handleBackspace = () => {
+    setOperation((prev) => prev.slice(0, -1));
   };
 
   /**
@@ -68,9 +50,10 @@ const Calculator = () => {
    * @param {object} event Keydown event.
    */
   const handleKeyboard = (event) => {
-    if (allowedDigits.includes(event.key)) handleDigit(event.key);
-    if (allowedOperators.includes(event.key)) handleOperator(event.key);
+    if (allowedDigits.includes(event.key)) appendSymbol(event.key);
+    if (allowedOperators.includes(event.key)) appendSymbol(event.key);
     if (event.key === equalsSymbol) handleEquals();
+    if (event.key === backspace) handleBackspace();
   };
 
   useEffect(() => {
@@ -81,14 +64,8 @@ const Calculator = () => {
   return (
     <Container>
       <ScreenContainer>
-        <Screen symbols={leftOperand} />
+        <Screen symbols={operation} />
       </ScreenContainer>
-      <ScreenContainer>
-        <Screen symbols={rightOperand} />
-      </ScreenContainer>
-      {/* <ScreenContainer>
-        <Screen symbols={answer} />
-      </ScreenContainer> */}
     </Container>
   );
 };
