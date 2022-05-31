@@ -19,10 +19,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const ScreenContainer = styled.div`
-  margin-bottom: 1rem;
-  display: flex;
-`;
 
 /**
  * The bulk of the application logic is housed in this component. Will handle display of screen, buttons, and calculator outputs.
@@ -30,9 +26,11 @@ const ScreenContainer = styled.div`
  */
 const Calculator = () => {
   const [operation, setOperation] = useState([]);
+  const [cursorPosition, setCursorPosition] = useState(0);
 
   const appendSymbol = (symbol) => {
     setOperation([...operation, symbol]);
+    setCursorPosition((prev) => prev + 1);
   };
 
   const handleEquals = () => {
@@ -43,6 +41,7 @@ const Calculator = () => {
 
   const handleBackspace = () => {
     setOperation((prev) => prev.slice(0, -1));
+    setCursorPosition((prev) => (prev > 0 ? prev - 1 : 0));
   };
 
   /**
@@ -63,9 +62,7 @@ const Calculator = () => {
 
   return (
     <Container>
-      <ScreenContainer>
-        <Screen symbols={operation} />
-      </ScreenContainer>
+      <Screen symbols={operation} cursorPosition={cursorPosition} />
     </Container>
   );
 };

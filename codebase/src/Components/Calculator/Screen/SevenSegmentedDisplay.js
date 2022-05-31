@@ -19,7 +19,7 @@ const lookupSymbol = (symbol) => {
     7: [1, 0, 1, 0, 0, 1, 0],
     8: [1, 1, 1, 1, 1, 1, 1],
     9: [1, 1, 1, 1, 0, 1, 0],
-    '+': [0, 1, 0, 1, 1, 0, 0],
+    '+': [0, 0, 1, 1, 0, 1, 0],
     '-': [0, 0, 0, 1, 0, 0, 0],
     '*': [1, 0, 0, 0, 0, 0, 1],
     '/': [0, 0, 1, 0, 0, 1, 0],
@@ -49,13 +49,12 @@ const Segment = styled.div`
  * @param {number} props.height
  * @param {number} props.width
  */
-const Segments = ({ symbol, colour, height, width }) => {
+const SevenSegmentDisplay = ({ symbol, colour, height, width }) => {
   // determine which segments to display and pad segments out to account for layout divs
-  const paddedSegs = padAtEvenIndicesWithValue(lookupSymbol(symbol), 0);
-
+  const segs = padAtEvenIndicesWithValue(lookupSymbol(symbol), 0);
   return (
     <Container height={height} width={width}>
-      {paddedSegs.map(
+      {segs.map(
         (visible, index) =>
           (index % 2 === 0 && <div key={`${index}-${visible}`}></div>) || (
             <Segment
@@ -69,11 +68,11 @@ const Segments = ({ symbol, colour, height, width }) => {
   );
 };
 
-Segments.propTypes = {
+SevenSegmentDisplay.propTypes = {
   symbol: PropTypes.string.isRequired,
   colour: PropTypes.string,
   height: PropTypes.string,
   width: PropTypes.string,
 };
 
-export default Segments;
+export default SevenSegmentDisplay;
