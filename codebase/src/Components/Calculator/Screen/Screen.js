@@ -7,6 +7,7 @@ import SevenSegmentedDisplay from './SevenSegmentedDisplay';
 import Cursor from './Cursor';
 
 const Container = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   gap: 10px;

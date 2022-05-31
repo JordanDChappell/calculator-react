@@ -18,4 +18,19 @@ export const padAtEvenIndicesWithValue = (array, value) => {
   return temp;
 };
 
-export const cum = null;
+export const replaceElementAtIndex = (array, index, value) => [
+  ...array.slice(0, index),
+  value,
+  ...array.slice(index + 1),
+];
+
+export const insertElementAtIndex = (array, index, value) => [
+  ...array.slice(0, index),
+  value,
+  ...array.slice(index),
+];
+
+export const removeElementByIndex = (array, index) => [
+  ...array.slice(0, index - 1),
+  ...array.slice(index),
+];

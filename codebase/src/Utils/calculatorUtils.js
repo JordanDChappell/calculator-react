@@ -1,5 +1,22 @@
 /* Constants */
-export const allowedDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-export const allowedOperators = ['+', '-', '*', '/'];
-export const equalsSymbol = '=';
-export const backspace = 'Backspace';
+export const allowedSymbols = [
+  '0',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '+',
+  '-',
+  '*',
+  '/',
+];
+export const backspaceKey = 'Backspace';
+export const deleteKey = 'Delete';
+export const arrowLeftKey = 'ArrowLeft';
+export const arrowRightKey = 'ArrowRight';
+export const allowedCursorKeys = [arrowLeftKey, arrowRightKey];

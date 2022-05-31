@@ -9,11 +9,11 @@ const blinkAnimation = keyframes`
 `;
 
 const Bar = styled.div`
-  position: fixed;
+  position: absolute;
   height: 4px;
   width: ${(props) => props.width}px;
-  margin-top: ${(props) => props.height}px;
-  margin-left: ${(props) => props.position * props.width}px;
+  top: ${(props) => props.height}px;
+  left: ${(props) => props.position * props.width}px;
   background-color: ${(props) => props.colour ?? 'black'};
   animation: ${blinkAnimation} 1s step-start infinite;
 `;

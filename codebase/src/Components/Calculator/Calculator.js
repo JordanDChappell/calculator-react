@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import {
+  removeElementByIndex,
+  replaceElementAtIndex,
+} from '../../Utils/arrayUtils';
 
 /* Library */
 import {
-  allowedDigits,
-  allowedOperators,
-  equalsSymbol,
-  backspace,
+  allowedSymbols,
+  backspaceKey,
+  deleteKey,
+  arrowLeftKey,
+  allowedCursorKeys,
 } from '../../Utils/calculatorUtils';
 
 /* Components */
@@ -25,23 +30,81 @@ const Container = styled.div`
  * Also takes care of keyboard events.
  */
 const Calculator = () => {
-  const [operation, setOperation] = useState([]);
+  const [expression, setExpression] = useState([]);
   const [cursorPosition, setCursorPosition] = useState(0);
 
-  const appendSymbol = (symbol) => {
-    setOperation([...operation, symbol]);
-    setCursorPosition((prev) => prev + 1);
-  };
-
-  const handleEquals = () => {
-    // eslint-disable-next-line no-eval
-    const calculated = eval(operation.join('')); // this should be safe when restricted to math operations
-    setOperation(calculated.toString(10).split(''));
-  };
-
-  const handleBackspace = () => {
-    setOperation((prev) => prev.slice(0, -1));
+  /**
+   * Moves the cursor to the left if possible.
+   */
+  const moveCursorLeft = () => {
     setCursorPosition((prev) => (prev > 0 ? prev - 1 : 0));
+  };
+
+  /**
+   * Moves the cursor to the right if possible.
+   * @param {number?} offset Optional offset to apply to the position.
+   */
+  const moveCursorRight = (offset = 0) => {
+    setCursorPosition((prev) =>
+      prev < expression.length + offset ? prev + 1 : prev
+    );
+  };
+
+  /**
+   * Add a new symbol (number, operator) to the expression.
+   * @param {string} symbol Key pressed.
+   */
+  const appendSymbol = (symbol) => {
+    setExpression((prev) =>
+      replaceElementAtIndex(prev, cursorPosition, symbol)
+    );
+    moveCursorRight(1);
+  };
+
+  /**
+   * Reset screen state to defaults.
+   */
+  const clearScreen = () => {
+    setExpression([]);
+    setCursorPosition(0);
+  };
+
+  /**
+   * Evalute the expression provided and display the result on the screen.
+   */
+  const handleEquals = () => {
+    try {
+      // eslint-disable-next-line no-eval
+      const calculated = eval(expression.join('')).toString(10).split(''); // this should be safe when restricted to math operations
+      setExpression(calculated);
+      setCursorPosition(calculated.length);
+    } catch {
+      clearScreen();
+    }
+  };
+
+  /**
+   * Removes a symbol from the screen at before the cursor position.
+   */
+  const handleBackspace = () => {
+    setExpression((prev) => removeElementByIndex(prev, cursorPosition));
+    moveCursorLeft();
+  };
+
+  /**
+   * Removes a symbol from the screen that the cursor is pointing to.
+   */
+  const handleDelete = () => {
+    setExpression((prev) => removeElementByIndex(prev, cursorPosition + 1));
+  };
+
+  /**
+   * Moves the cursor to the left or right depending on the pressed key.
+   * @param {string} key Arrow key that was pressed.
+   */
+  const handleCursor = (key) => {
+    if (key === arrowLeftKey) moveCursorLeft();
+    else moveCursorRight();
   };
 
   /**
@@ -49,10 +112,13 @@ const Calculator = () => {
    * @param {object} event Keydown event.
    */
   const handleKeyboard = (event) => {
-    if (allowedDigits.includes(event.key)) appendSymbol(event.key);
-    if (allowedOperators.includes(event.key)) appendSymbol(event.key);
-    if (event.key === equalsSymbol) handleEquals();
-    if (event.key === backspace) handleBackspace();
+    const { key } = event;
+    if (allowedSymbols.includes(key)) appendSymbol(key);
+    if (allowedCursorKeys.includes(key)) handleCursor(key);
+    if (key === backspaceKey) handleBackspace();
+    if (key === deleteKey) handleDelete();
+    if (key === 'c') clearScreen();
+    if (key === '=') handleEquals();
   };
 
   useEffect(() => {
@@ -62,7 +128,7 @@ const Calculator = () => {
 
   return (
     <Container>
-      <Screen symbols={operation} cursorPosition={cursorPosition} />
+      <Screen symbols={expression} cursorPosition={cursorPosition} />
     </Container>
   );
 };
