@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 /* Components */
-import SevenSegmentedDisplay from './Components/Calculator/Screen/SevenSegmentedDisplay';
+import ElevenSegmentDisplay from './Components/Calculator/Screen/ElevenSegmentDisplay';
 import Calculator from './Components/Calculator/Calculator';
 
 /* Style */
@@ -21,16 +21,17 @@ const App = () => (
       <h1 className="heading">React Calculator</h1>
     </header>
     <Display>
-      <SevenSegmentedDisplay symbol="0" height="100px" width="50px" />
-      <SevenSegmentedDisplay symbol="1" height="100px" width="50px" />
-      <SevenSegmentedDisplay symbol="2" height="100px" width="50px" />
-      <SevenSegmentedDisplay symbol="3" height="100px" width="50px" />
-      <SevenSegmentedDisplay symbol="4" height="100px" width="50px" />
-      <SevenSegmentedDisplay symbol="5" height="100px" width="50px" />
-      <SevenSegmentedDisplay symbol="6" height="100px" width="50px" />
-      <SevenSegmentedDisplay symbol="7" height="100px" width="50px" />
-      <SevenSegmentedDisplay symbol="8" height="100px" width="50px" />
-      <SevenSegmentedDisplay symbol="9" height="100px" width="50px" />
+      <ElevenSegmentDisplay symbol="0" height="100px" width="50px" />
+      <ElevenSegmentDisplay symbol="1" height="100px" width="50px" />
+      <ElevenSegmentDisplay symbol="2" height="100px" width="50px" />
+      <ElevenSegmentDisplay symbol="3" height="100px" width="50px" />
+      <ElevenSegmentDisplay symbol="4" height="100px" width="50px" />
+      <ElevenSegmentDisplay symbol="5" height="100px" width="50px" />
+      <ElevenSegmentDisplay symbol="6" height="100px" width="50px" />
+      <ElevenSegmentDisplay symbol="7" height="100px" width="50px" />
+      <ElevenSegmentDisplay symbol="8" height="100px" width="50px" />
+      <ElevenSegmentDisplay symbol="9" height="100px" width="50px" />
+      <ElevenSegmentDisplay symbol="*" height="100px" width="50px" />
     </Display>
     <Calculator />
   </div>

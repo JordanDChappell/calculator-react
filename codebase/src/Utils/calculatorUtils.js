@@ -15,6 +15,8 @@ export const allowedSymbols = [
   '*',
   '/',
 ];
+export const enterKey = 'Enter';
+export const escapeKey = 'Escape';
 export const backspaceKey = 'Backspace';
 export const deleteKey = 'Delete';
 export const arrowLeftKey = 'ArrowLeft';

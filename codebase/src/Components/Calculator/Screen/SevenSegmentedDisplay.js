@@ -9,6 +9,7 @@ import { padAtEvenIndicesWithValue } from '../../../Utils/arrayUtils';
  */
 const lookupSymbol = (symbol) => {
   const symbols = {
+    //  T, L, R, M, L, R, M
     0: [1, 1, 1, 0, 1, 1, 1],
     1: [0, 0, 1, 0, 0, 1, 0],
     2: [1, 0, 1, 1, 1, 0, 1],

@@ -12,6 +12,8 @@ import {
   deleteKey,
   arrowLeftKey,
   allowedCursorKeys,
+  enterKey,
+  escapeKey,
 } from '../../Utils/calculatorUtils';
 
 /* Components */
@@ -117,8 +119,8 @@ const Calculator = () => {
     if (allowedCursorKeys.includes(key)) handleCursor(key);
     if (key === backspaceKey) handleBackspace();
     if (key === deleteKey) handleDelete();
-    if (key === 'c') clearScreen();
-    if (key === '=') handleEquals();
+    if (key === 'c' || key === escapeKey) clearScreen();
+    if (key === '=' || key === enterKey) handleEquals();
   };
 
   useEffect(() => {
