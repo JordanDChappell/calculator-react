@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 /* Components */
-import ElevenSegmentDisplay from './ElevenSegmentDisplay';
+import SixteenSegmentDisplay from './SixteenSegmentDisplay';
 import Cursor from './Cursor';
 
 const Container = styled.div`
@@ -24,14 +24,14 @@ const Container = styled.div`
 const Screen = ({ symbols, cursorPosition }) => (
   <Container>
     {symbols.map((symbol, index) => (
-      <ElevenSegmentDisplay
+      <SixteenSegmentDisplay
         key={`${index}-${symbol}`}
         symbol={symbol}
         height="100px"
-        width="50px"
+        width="60px"
       />
     ))}
-    <Cursor height={100} width={60} position={cursorPosition ?? 0} />
+    <Cursor height={100} width={70} position={cursorPosition ?? 0} />
   </Container>
 );
 

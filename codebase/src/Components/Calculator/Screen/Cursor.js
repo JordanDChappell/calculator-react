@@ -10,7 +10,7 @@ const blinkAnimation = keyframes`
 
 const Bar = styled.div`
   position: absolute;
-  height: 4px;
+  height: 5px;
   width: ${(props) => props.width}px;
   top: ${(props) => props.height}px;
   left: ${(props) => props.position * props.width}px;

@@ -73,8 +73,6 @@ const Segment = styled.div`
   visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
   background-color: ${(props) => props.colour ?? 'black'};
   transform: rotate(${(props) => props.rotate ?? 0}deg);
-  // width: ${(props) => (props.rotate ? '4px' : null)};
-  // height: ${(props) => (props.rotate ? '100%' : null)};
   grid-area: ${(props) => props.area};
 `;
 
