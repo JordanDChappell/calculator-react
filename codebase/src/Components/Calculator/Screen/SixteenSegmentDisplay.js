@@ -98,8 +98,7 @@ const DecimalPlace = styled.div`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   background-color: ${(props) => props.colour ?? 'black'};
-  margin-left: ${(props) => props.offsetX};
-  margin-top: ${(props) => props.offsetY};
+  margin-top: ${(props) => props.offset}px;
 `;
 
 /**
@@ -110,18 +109,18 @@ const DecimalPlace = styled.div`
  * @param {number} props.width
  */
 const SixteenSegmentDisplay = ({ symbol, colour, height, width }) => {
-  // calculate column width ratio
+  // calculate sizes and ratios
   const parsedHeight = parseInt(height, 10);
   const parsedWidth = parseInt(width, 10);
   const colSize = (parsedHeight / parsedWidth) * 5;
+  const decimalSize = parsedHeight * 0.1;
 
   if (symbol === '.')
     return (
       <DecimalPlace
         colour={colour}
-        size={parsedHeight * 0.05}
-        offsetX={width}
-        offsetY={height}
+        size={decimalSize}
+        offset={parsedHeight - decimalSize}
       />
     );
 

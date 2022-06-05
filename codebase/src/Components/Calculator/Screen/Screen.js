@@ -31,7 +31,7 @@ const Screen = ({ symbols, cursorPosition }) => (
         width="60px"
       />
     ))}
-    <Cursor height={100} width={70} position={cursorPosition ?? 0} />
+    <Cursor height={100} width={60} position={cursorPosition ?? 0} gap={10} />
   </Container>
 );
 

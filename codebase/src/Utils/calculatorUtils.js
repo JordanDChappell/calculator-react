@@ -14,6 +14,7 @@ export const allowedSymbols = [
   '-',
   '*',
   '/',
+  '.',
 ];
 export const enterKey = 'Enter';
 export const escapeKey = 'Escape';
