@@ -79,11 +79,10 @@ const Segment = styled.div`
 /**
  * An 11 segmented display drawn with basic HTML div elements.
  * @param {string} props.symbol
- * @param {string} props.colour
  * @param {number} props.height
  * @param {number} props.width
  */
-const ElevenSegmentDisplay = ({ symbol, colour, height, width }) => {
+const ElevenSegmentDisplay = ({ symbol, height, width }) => {
   // determine which segments to display
   const segs = lookupSymbol(symbol);
 
@@ -92,7 +91,6 @@ const ElevenSegmentDisplay = ({ symbol, colour, height, width }) => {
       {segs.map((visible, index) => (
         <Segment
           key={`${index}-${visible}`}
-          colour={colour}
           visible={visible}
           area={lookupArea(index)}
           rotate={lookupRotation(lookupArea(index))}
@@ -104,7 +102,6 @@ const ElevenSegmentDisplay = ({ symbol, colour, height, width }) => {
 
 ElevenSegmentDisplay.propTypes = {
   symbol: PropTypes.string.isRequired,
-  colour: PropTypes.string,
   height: PropTypes.string,
   width: PropTypes.string,
 };

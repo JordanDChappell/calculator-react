@@ -105,11 +105,10 @@ const DecimalPlace = styled.div`
 /**
  * A 16 segmented display drawn with basic HTML div elements.
  * @param {string} props.symbol
- * @param {string} props.colour
  * @param {number} props.height
  * @param {number} props.width
  */
-const SixteenSegmentDisplay = ({ symbol, colour, height, width }) => {
+const SixteenSegmentDisplay = ({ symbol, height, width }) => {
   // calculate sizes and ratios
   const parsedHeight = parseInt(height, 10);
   const parsedWidth = parseInt(width, 10);
@@ -118,11 +117,7 @@ const SixteenSegmentDisplay = ({ symbol, colour, height, width }) => {
 
   if (symbol === '.')
     return (
-      <DecimalPlace
-        colour={colour}
-        size={decimalSize}
-        offset={parsedHeight - decimalSize}
-      />
+      <DecimalPlace size={decimalSize} offset={parsedHeight - decimalSize} />
     );
 
   // determine which segments to display
@@ -133,7 +128,6 @@ const SixteenSegmentDisplay = ({ symbol, colour, height, width }) => {
       {segs.map((visible, index) => (
         <Segment
           key={`${index}-${visible}`}
-          colour={colour}
           visible={visible}
           area={lookupArea(index)}
           rotate={lookupRotation(lookupArea(index))}
@@ -146,7 +140,6 @@ const SixteenSegmentDisplay = ({ symbol, colour, height, width }) => {
 
 SixteenSegmentDisplay.propTypes = {
   symbol: PropTypes.string.isRequired,
-  colour: PropTypes.string,
   height: PropTypes.string,
   width: PropTypes.string,
 };

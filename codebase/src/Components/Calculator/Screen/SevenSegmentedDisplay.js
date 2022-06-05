@@ -46,11 +46,10 @@ const Segment = styled.div`
 /**
  * A 7 segmented display drawn with basic HTML div elements.
  * @param {string} props.symbol
- * @param {string} props.colour
  * @param {number} props.height
  * @param {number} props.width
  */
-const SevenSegmentDisplay = ({ symbol, colour, height, width }) => {
+const SevenSegmentDisplay = ({ symbol, height, width }) => {
   // determine which segments to display and pad segments out to account for layout divs
   const segs = padAtEvenIndicesWithValue(lookupSymbol(symbol), 0);
   return (
@@ -58,11 +57,7 @@ const SevenSegmentDisplay = ({ symbol, colour, height, width }) => {
       {segs.map(
         (visible, index) =>
           (index % 2 === 0 && <div key={`${index}-${visible}`}></div>) || (
-            <Segment
-              key={`${index}-${visible}`}
-              colour={colour}
-              visible={visible}
-            ></Segment>
+            <Segment key={`${index}-${visible}`} visible={visible}></Segment>
           )
       )}
     </Container>
@@ -71,7 +66,6 @@ const SevenSegmentDisplay = ({ symbol, colour, height, width }) => {
 
 SevenSegmentDisplay.propTypes = {
   symbol: PropTypes.string.isRequired,
-  colour: PropTypes.string,
   height: PropTypes.string,
   width: PropTypes.string,
 };

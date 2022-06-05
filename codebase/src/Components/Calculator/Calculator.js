@@ -20,12 +20,18 @@ import Buttons from './Buttons/Buttons';
 /* Components */
 import Screen from './Screen/Screen';
 
-const Container = styled.div`
+const Body = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 2em;
+  background-color: ${(props) => props.theme.body};
+  padding: 2em 0;
+`;
+const Padding = styled.div`
+  height: 1em;
 `;
 
 /**
@@ -131,17 +137,13 @@ const Calculator = () => {
   });
 
   return (
-    <Container>
-      <Screen
-        symbols={expression}
-        cursorPosition={cursorPosition}
-        width="40%"
-      />
+    <Body>
+      <Screen symbols={expression} cursorPosition={cursorPosition} />
+      <Padding />
       <Buttons
-        width="40%"
         onButtonPressed={(symbol) => handleButtonEvent({ key: symbol })}
       />
-    </Container>
+    </Body>
   );
 };
 
