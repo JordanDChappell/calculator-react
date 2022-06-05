@@ -1,0 +1,55 @@
+name: Build and Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./codebase
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install yarn package manager
+        run: npm install -g yarn
+      - name: Install project dependencies
+        run: yarn install
+      - name: Build the application
+        run: yarn build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2.1.4
+        with:
+          name: drop
+          path: ./codebase/dist/*
+
+  deploy:
+    name: Deploy
+    needs: [build]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.0.5
+        with:
+          name: drop
+          path: ./dist
+      - name: Deploy to GitHub pages
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages
+          folder: dist
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
