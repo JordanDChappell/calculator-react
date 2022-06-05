@@ -7,5 +7,6 @@
     "onSave": "test-file",
     "onStartup": ["all-tests"]
   },
-  "jest.rootPath": "./codebase"
+  "jest.rootPath": "./codebase",
+  "jest.jestCommandLine": "yarn test"
 }
