@@ -74,6 +74,8 @@ const lookupSymbol = (symbol) => {
 };
 
 const Container = styled.div`
+  height: ${(props) => props.height};
+  width: ${(props) => props.width};
   display: grid;
   grid-template-rows: 5% auto 5% auto 5%;
   grid-template-columns: ${(props) =>
@@ -84,8 +86,7 @@ const Container = styled.div`
     '. middle1 middle1 . middle2 middle2 .'
     'left2 diag3 . middlevert2 . diag4 right2'
     '. bottom1 bottom1 . bottom2 bottom2 .';
-  height: ${(props) => props.height};
-  width: ${(props) => props.width};
+  flex-shrink: 0;
 `;
 const Segment = styled.div`
   visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};

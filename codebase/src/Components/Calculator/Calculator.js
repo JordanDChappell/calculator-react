@@ -15,6 +15,7 @@ import {
   enterKey,
   escapeKey,
 } from '../../Utils/calculatorUtils';
+import Buttons from './Buttons/Buttons';
 
 /* Components */
 import Screen from './Screen/Screen';
@@ -89,6 +90,7 @@ const Calculator = () => {
    * Removes a symbol from the screen at before the cursor position.
    */
   const handleBackspace = () => {
+    if (cursorPosition === 0) return;
     setExpression((prev) => removeElementByIndex(prev, cursorPosition));
     moveCursorLeft();
   };
@@ -113,7 +115,7 @@ const Calculator = () => {
    * Handle keyboard events for the calculator, digits will draw to screen, operators will apply operations, etc.
    * @param {object} event Keydown event.
    */
-  const handleKeyboard = (event) => {
+  const handleButtonEvent = (event) => {
     const { key } = event;
     if (allowedSymbols.includes(key)) appendSymbol(key);
     if (allowedCursorKeys.includes(key)) handleCursor(key);
@@ -124,13 +126,21 @@ const Calculator = () => {
   };
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyboard);
-    return () => document.removeEventListener('keydown', handleKeyboard); // clean up event listeners
+    document.addEventListener('keydown', handleButtonEvent);
+    return () => document.removeEventListener('keydown', handleButtonEvent); // clean up event listeners
   });
 
   return (
     <Container>
-      <Screen symbols={expression} cursorPosition={cursorPosition} />
+      <Screen
+        symbols={expression}
+        cursorPosition={cursorPosition}
+        width="40%"
+      />
+      <Buttons
+        width="40%"
+        onButtonPressed={(symbol) => handleButtonEvent({ key: symbol })}
+      />
     </Container>
   );
 };

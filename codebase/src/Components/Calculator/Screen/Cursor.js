@@ -13,18 +13,29 @@ const Bar = styled.div`
   height: 5px;
   width: ${(props) => props.width}px;
   top: ${(props) => props.height + 5}px;
-  left: ${(props) => props.left};
+  right: 0;
+  margin-right: ${(props) => props.right};
   background-color: ${(props) => props.colour ?? 'black'};
   animation: ${blinkAnimation} 1s step-start infinite;
 `;
 
-const Cursor = ({ colour, height, width, position, gap }) => (
+const Cursor = ({
+  colour,
+  height,
+  width,
+  position,
+  availablePositions,
+  gap,
+}) => (
   <Bar
     colour={colour}
     height={height}
     width={width}
     position={position}
-    left={`${position * width + position * gap}px`}
+    right={`${
+      (availablePositions - position) * width +
+      (availablePositions - position) * gap
+    }px`}
   />
 );
 
@@ -33,6 +44,7 @@ Cursor.propTypes = {
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
   position: PropTypes.number.isRequired,
+  availablePositions: PropTypes.number,
   gap: PropTypes.number,
 };
 
