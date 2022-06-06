@@ -42,20 +42,36 @@ const Buttons = ({ onButtonPressed }) => (
     >
       {'>'}
     </DoubleWideButton>
-    <Button area="a" shortcut="c / ESC" onClick={() => onButtonPressed('c')}>
+    <Button
+      area="a"
+      shortcut="c / ESC"
+      secondary
+      onClick={() => onButtonPressed('c')}
+    >
       AC
     </Button>
-    <Button area="b" shortcut="DEL" onClick={() => onButtonPressed(deleteKey)}>
+    <Button
+      area="b"
+      shortcut="DEL"
+      secondary
+      onClick={() => onButtonPressed(deleteKey)}
+    >
       DEL
     </Button>
     <Button
       area="c"
       shortcut="Backspace"
+      secondary
       onClick={() => onButtonPressed(backspaceKey)}
     >
       {`<-`}
     </Button>
-    <Button area="d" shortcut="/" onClick={() => onButtonPressed('/')}>
+    <Button
+      area="d"
+      shortcut="/"
+      secondary
+      onClick={() => onButtonPressed('/')}
+    >
       /
     </Button>
     <Button area="e" shortcut="7" onClick={() => onButtonPressed('7')}>
@@ -67,7 +83,12 @@ const Buttons = ({ onButtonPressed }) => (
     <Button area="g" shortcut="9" onClick={() => onButtonPressed('9')}>
       9
     </Button>
-    <Button area="h" shortcut="*" onClick={() => onButtonPressed('*')}>
+    <Button
+      area="h"
+      shortcut="*"
+      secondary
+      onClick={() => onButtonPressed('*')}
+    >
       *
     </Button>
     <Button area="i" shortcut="4" onClick={() => onButtonPressed('4')}>
@@ -79,7 +100,12 @@ const Buttons = ({ onButtonPressed }) => (
     <Button area="k" shortcut="6" onClick={() => onButtonPressed('6')}>
       6
     </Button>
-    <Button area="l" shortcut="-" onClick={() => onButtonPressed('-')}>
+    <Button
+      area="l"
+      shortcut="-"
+      secondary
+      onClick={() => onButtonPressed('-')}
+    >
       -
     </Button>
     <Button area="m" shortcut="1" onClick={() => onButtonPressed('1')}>
@@ -91,7 +117,12 @@ const Buttons = ({ onButtonPressed }) => (
     <Button area="o" shortcut="3" onClick={() => onButtonPressed('3')}>
       3
     </Button>
-    <Button area="p" shortcut="+" onClick={() => onButtonPressed('+')}>
+    <Button
+      area="p"
+      shortcut="+"
+      secondary
+      onClick={() => onButtonPressed('+')}
+    >
       +
     </Button>
     <DoubleWideButton
@@ -101,10 +132,20 @@ const Buttons = ({ onButtonPressed }) => (
     >
       0
     </DoubleWideButton>
-    <Button area="r" shortcut="." onClick={() => onButtonPressed('.')}>
+    <Button
+      area="r"
+      shortcut="."
+      secondary
+      onClick={() => onButtonPressed('.')}
+    >
       .
     </Button>
-    <Button area="s" shortcut="=" onClick={() => onButtonPressed('=')}>
+    <Button
+      area="s"
+      shortcut="="
+      secondary
+      onClick={() => onButtonPressed('=')}
+    >
       {'='}
     </Button>
   </Container>

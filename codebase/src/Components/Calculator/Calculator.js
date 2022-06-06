@@ -8,6 +8,7 @@ import {
 /* Library */
 import {
   allowedSymbols,
+  allowedOperators,
   backspaceKey,
   deleteKey,
   arrowLeftKey,
@@ -15,10 +16,10 @@ import {
   enterKey,
   escapeKey,
 } from '../../Utils/calculatorUtils';
-import Buttons from './Buttons/Buttons';
 
 /* Components */
 import Screen from './Screen/Screen';
+import Buttons from './Buttons/Buttons';
 
 const Body = styled.div`
   width: 100%;
@@ -64,6 +65,19 @@ const Calculator = () => {
    * @param {string} symbol Key pressed.
    */
   const appendSymbol = (symbol) => {
+    // Ensure that an operator is being applied properly
+    if (
+      (symbol === '/' || symbol === '*') &&
+      !allowedSymbols.includes(expression[cursorPosition - 1])
+    )
+      return;
+
+    if (
+      (symbol === '+' || symbol === '-') &&
+      allowedOperators.includes(expression[cursorPosition - 1])
+    )
+      return;
+
     setExpression((prev) =>
       replaceElementAtIndex(prev, cursorPosition, symbol)
     );
@@ -123,7 +137,8 @@ const Calculator = () => {
    */
   const handleButtonEvent = (event) => {
     const { key } = event;
-    if (allowedSymbols.includes(key)) appendSymbol(key);
+    if (allowedSymbols.includes(key) || allowedOperators.includes(key))
+      appendSymbol(key);
     if (allowedCursorKeys.includes(key)) handleCursor(key);
     if (key === backspaceKey) handleBackspace();
     if (key === deleteKey) handleDelete();

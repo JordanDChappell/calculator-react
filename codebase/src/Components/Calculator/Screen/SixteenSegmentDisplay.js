@@ -67,7 +67,7 @@ const lookupSymbol = (symbol) => {
     '-': [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
     '*': [0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0],
     '/': [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    default: new Error('Undefined symbol provided to Segments component'),
+    default: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   };
 
   return symbols[symbol] || symbols.default;

@@ -19,7 +19,7 @@ const Container = styled.div`
 `;
 const SymbolsContainer = styled.div`
   position: absolute;
-  right: ${(props) => 60 - props.offset}px;
+  right: ${(props) => 60 - (props.offset ?? 0)}px;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -37,8 +37,28 @@ const Screen = ({ symbols, cursorPosition }) => {
   const screenOffset =
     cursorOffset >= displayWidth ? positionDifference * 50 : 0;
 
+  const emptySegments = [
+    'null',
+    'null',
+    'null',
+    'null',
+    'null',
+    'null',
+    'null',
+  ];
+
   return (
     <Container>
+      <SymbolsContainer>
+        {emptySegments.map((symbol, index) => (
+          <SixteenSegmentDisplay
+            key={`${index}-${symbol}`}
+            symbol={symbol}
+            height="80px"
+            width="40px"
+          />
+        ))}
+      </SymbolsContainer>
       <SymbolsContainer offset={screenOffset}>
         {symbols.map((symbol, index) => (
           <SixteenSegmentDisplay
