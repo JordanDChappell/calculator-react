@@ -8,7 +8,7 @@ import Cursor from './Cursor';
 
 const Container = styled.div`
   position: relative;
-  width: 18em;
+  width: 320px;
   height: 90px;
   margin: 0 1em;
   padding: 0.5em;
@@ -19,7 +19,7 @@ const Container = styled.div`
 `;
 const SymbolsContainer = styled.div`
   position: absolute;
-  right: 60px;
+  right: ${(props) => 60 - props.offset}px;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -30,27 +30,39 @@ const SymbolsContainer = styled.div`
  * Display a list of digits on a segmented screen.
  * @param {array} props.symbols
  */
-const Screen = ({ symbols, cursorPosition }) => (
-  <Container>
-    <SymbolsContainer>
-      {symbols.map((symbol, index) => (
-        <SixteenSegmentDisplay
-          key={`${index}-${symbol}`}
-          symbol={symbol}
-          height="80px"
-          width="40px"
-        />
-      ))}
-    </SymbolsContainer>
-    <Cursor
-      height={85}
-      width={40}
-      position={cursorPosition ?? 0}
-      availablePositions={symbols.length}
-      gap={10}
-    />
-  </Container>
-);
+const Screen = ({ symbols, cursorPosition }) => {
+  const displayWidth = 5;
+  const cursorOffset = symbols.length - cursorPosition;
+  const positionDifference = cursorOffset - displayWidth;
+  const screenOffset =
+    cursorOffset >= displayWidth ? positionDifference * 50 : 0;
+
+  return (
+    <Container>
+      <SymbolsContainer offset={screenOffset}>
+        {symbols.map((symbol, index) => (
+          <SixteenSegmentDisplay
+            key={`${index}-${symbol}`}
+            symbol={symbol}
+            height="80px"
+            width="40px"
+          />
+        ))}
+      </SymbolsContainer>
+      <Cursor
+        height={85}
+        width={40}
+        position={
+          positionDifference >= 0
+            ? symbols.length - displayWidth
+            : cursorPosition
+        }
+        availablePositions={symbols.length}
+        gap={10}
+      />
+    </Container>
+  );
+};
 
 Screen.propTypes = {
   symbols: PropTypes.arrayOf(PropTypes.string),
