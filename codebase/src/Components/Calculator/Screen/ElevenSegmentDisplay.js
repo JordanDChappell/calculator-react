@@ -70,7 +70,7 @@ const Container = styled.div`
   width: ${(props) => props.width};
 `;
 const Segment = styled.div`
-  visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
+  opacity: ${(props) => (props.visible ? 1 : 0.02)};
   background-color: ${(props) => props.colour ?? 'black'};
   transform: rotate(${(props) => props.rotate ?? 0}deg);
   grid-area: ${(props) => props.area};
