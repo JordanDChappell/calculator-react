@@ -10,12 +10,8 @@ export const allowedSymbols = [
   '7',
   '8',
   '9',
-  '+',
-  '-',
-  '*',
-  '/',
-  '.',
 ];
+export const allowedOperators = ['+', '-', '*', '/', '.'];
 export const enterKey = 'Enter';
 export const escapeKey = 'Escape';
 export const backspaceKey = 'Backspace';
